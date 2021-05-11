@@ -1,0 +1,129 @@
+.naTV{
+    background-color: #000;
+    padding: 70px 45px;
+    display: flex;
+    justify-content: center;
+    border-top: 5px solid gray;
+    border-bottom: 5px solid gray;
+}
+.naTV > div{
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 53% 47%;
+    grid-template-rows: 325px;
+    align-items: center;
+}
+.tv_texto{
+    color: white;
+    padding-right: 50px;
+}
+.tv_texto > h1{
+    font-size: 3.125rem;
+    margin: 0 0 20px 0;
+    letter-spacing: 1px;
+}
+.tv_texto > h2{
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 10px 0px;
+}
+.tv_animacao{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.tv-img{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.tv-img > img {
+    width: 100%;
+    height: auto; /* <=== */
+    position: absolute;
+}
+.tv_video{
+    width: 73%;
+    height: 67%;
+    margin-bottom: 15px;
+}
+.tv_video > video{
+    width: 100%;
+    height: 100%;
+}
+@media screen and (max-width: 1200px){
+    .naTV > div{
+        grid-template-rows: 310px;
+    }
+}
+@media screen and (max-width: 1100px){
+    .naTV > div{
+        grid-template-rows: 290px;
+    }
+}
+@media screen and (max-width: 970px){
+    .naTV > div{
+        grid-template-rows: 250px;
+    }
+}
+@media screen and (max-width: 950px){
+    .naTV > div{
+        grid-template-columns: auto;
+        grid-template-rows: auto 394px;
+    }
+    .tv_texto{
+        z-index: 1;
+        padding-right: 0px;
+        text-align: center;
+    }
+    .tv_texto > h1{
+        font-size: 2.5rem;
+    }
+    .tv_texto > h2{
+        font-size: 1.25rem;
+    }
+    .tv-img > img {
+        height: 454px;
+        width: auto;
+    }
+    .tv_video{
+        height: 63%;
+    }
+}
+@media screen and (max-width: 710px){
+    .naTV > div{
+        grid-template-rows: auto 340px;
+    }
+    .tv-img > img {
+        height: auto;
+        width: 100%;
+    }
+    .tv_video{
+        height: 73%;
+    }
+}
+@media screen and (max-width: 560px){
+    .naTV > div{
+        grid-template-rows: auto 280px;
+    }
+    .tv_texto > h1{
+        font-size: 1.625rem;
+    }
+    .tv_texto > h2{
+        font-size: 1.125rem;
+    }
+}
+@media screen and (max-width: 450px){
+    .naTV > div{
+        grid-template-rows: auto 200px;
+    }
+}
+@media screen and (max-width: 375px){
+    .naTV > div{
+        grid-template-rows: auto 180px;
+    }
+}
