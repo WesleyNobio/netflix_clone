@@ -1,62 +1,75 @@
-var input = document.querySelector('.email_input')
-var label = document.querySelector('.lab')
-var i = document.querySelector('.input')
-var div_msg = document.querySelector('.e_msg')
-var div_span = document.querySelector('.span_msg')
-var email = "", input_yellow = false, email_completo = false;
+var input = document.querySelectorAll('.email_input')
+var label = document.querySelectorAll('.lab')
+var i = document.querySelectorAll('.input')
+var div_msg = document.querySelectorAll('.e_msg')
+var div_span = document.querySelectorAll('.span_msg')
 
-input.addEventListener('focusin', (event) => {
+var email = ["",""], input_yellow = [false, false];
+var email_completo = [false, false], email_icompleto = [false, false];
 
-    event.target.placeholder = ""
-    label.classList.add('lb')
-    i.classList.add('ig')
-})
+input.forEach((element, key) => {
 
-input.addEventListener('focusout', (event) => {
+    element.addEventListener('focusin', (event) => {
+        event.target.placeholder = ""
+        label[key].classList.add('lb')
+        i[key].classList.add('ig')
+    })
+});
 
-    event.target.placeholder = "Email"
-    label.classList.remove('lb')
-    i.classList.remove('ig')
+input.forEach((element, key) => {
 
-    if (email.length < 5) {
-        add_msg()
-        input_yellow = true;
-    }
-})
+    element.addEventListener('focusout', (event) => {
+        event.target.placeholder = "Email"
+        label[key].classList.remove('lb')
+        i[key].classList.remove('ig')
 
-function add_msg() {
-    div_msg.classList.add('msg_f')
-    input.classList.add('ib')
+        if (email[key].length < 5) {
+            add_msg(key)
+            input_yellow[key] = true;
+        }
+        if(email_icompleto[key] && !email_completo[key]){
+            add_msg(key)
+            div_span[key].innerHTML = 'Incira um email válido.';
+            input_yellow[key] = true;
+        }
+    })
+});
+
+function add_msg(key) {
+    div_msg[key].classList.add('msg_f')
+    input[key].classList.add('ib')
 }
-function remove_msg() {
-    div_msg.classList.remove('msg_f')
-    input.classList.remove('ib')
+function remove_msg(key) {
+    div_msg[key].classList.remove('msg_f')
+    input[key].classList.remove('ib')
 }
 
-input.addEventListener('input', (event) => {
-    email = event.target.value;
-    var verficacao = verifica_email(event.target.value)
+input.forEach((element, key) => {
+    element.addEventListener('input', (event) => {
+        email[key] = event.target.value;
+        var verficacao = verifica_email(event.target.value)
+    
+        if (verficacao) email_completo[key] = true;
+    
+        if (input_yellow[key] && verficacao || email_completo[key] && verficacao) {
+            remove_msg(key)
+            input_yellow[key] = false;
+            return;
+        }
+        if (input_yellow[key] && email[key].length >= 5 || email[key].length >= 5 && email_completo[key] && !verficacao) {
+            add_msg(key)
+            div_span[key].innerHTML = 'Incira um email válido.'
+        }
+        if (input_yellow[key] && email[key].length <= 5 || email[key].length <= 5 && email_completo[key] && !verficacao) {
+            div_span[key].innerHTML = 'O email é obrigatório.'
+        }
 
-    if (verficacao) email_completo = true;
+        if(email[key].length >= 5 && !verficacao) email_icompleto[key] = true;
 
-    if (input_yellow && verficacao || email_completo && verficacao) {
-        remove_msg()
-        input_yellow = false;
-        return;
-    }
-    if (input_yellow && email.length >= 5 || email.length >= 5 && email_completo && !verficacao) {
-        add_msg()
-        div_span.innerHTML = 'Incira um email válido.'
-    }
-    if (input_yellow && email.length <= 5 || email.length <= 5 && email_completo && !verficacao) {
-        div_span.innerHTML = 'O email é obrigatório.'
-    }
-
-
+    })
 })
 
 const verifica_email = (email) => {
-
     var regex = /@gmail\.com$/;
     var re = regex.test(email)
     return re;
